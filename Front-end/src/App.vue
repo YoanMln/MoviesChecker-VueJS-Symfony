@@ -1,30 +1,71 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div id="app">
+    <header>
+      <nav>
+        <router-link to="/">Accueil</router-link>
+        <router-link to="/movies">Films</router-link>
+
+        <div class="nav-right">
+          <template v-if="!isLoggedIn">
+            <router-link to="/login">Connexion</router-link>
+            <router-link to="/register">Inscription</router-link>
+          </template>
+          <template v-else>
+            <router-link to="/profile">Profil</router-link>
+            <button @click="logout" class="logout-btn">Déconnexion</button>
+          </template>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <router-view />
+    </main>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+<script setup>
+import { ref, computed, onMounted } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const token = ref(localStorage.getItem("token"));
+
+const isLoggedIn = computed(() => !!token.value);
+
+const logout = () => {
+  localStorage.removeItem("token");
+  token.value = null;
+  router.push({ name: "login" });
+};
+
+onMounted(() => {
+  window.addEventListener("storage", () => {
+    token.value = localStorage.getItem("token");
+  });
+});
+</script>
+
+<style scoped lang="scss">
+header {
+  background-color: grey;
+  padding: 1rem;
+  border-radius: 10px;
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+
+    a {
+      color: white;
+      text-decoration: none;
+      margin-right: 1rem;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 1rem;
+    }
+  }
 }
 </style>
