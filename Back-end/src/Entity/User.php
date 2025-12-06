@@ -9,7 +9,6 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
-use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\QueryParameter;
 use App\Controller\UserAddFollowController;
 use App\Controller\UserRemoveFollowController;
@@ -27,7 +26,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:write']],
     order: ['username' => 'ASC'],
-
 )]
 #[Get()]
 #[GetCollection(
@@ -35,12 +33,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
         'username' => new QueryParameter(filter: new PartialSearchFilter()),
     ],
 )]
-#[Post(processor: UserPasswordHasher::class)]
+// Commenté pour utiliser le RegistrationController à la place
+// #[Post(processor: UserPasswordHasher::class)]
 #[Patch(securityPostDenormalize: "is_granted('ROLE_USER') and object == user", processor: UserPasswordHasher::class)]
 #[Delete(securityPostDenormalize: "is_granted('ROLE_USER') and object == user")]
 #[ApiResource(
     uriTemplate: '/users/{userId}/followers',
-    operations: [ new GetCollection() ],
+    operations: [new GetCollection()],
     uriVariables: ['userId' => new Link(toProperty: 'follows', fromClass: self::class)],
     normalizationContext: ['groups' => ['user:read']],
     order: ['updatedAt' => 'DESC']
@@ -203,7 +202,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __serialize(): array
     {
         $data = (array) $this;
-        $data["\0".self::class."\0password"] = hash('crc32c', $this->password);
+        $data["\0" . self::class . "\0password"] = hash('crc32c', $this->password);
 
         return $data;
     }
