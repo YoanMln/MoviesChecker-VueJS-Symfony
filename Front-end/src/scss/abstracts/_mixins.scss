@@ -1,0 +1,137 @@
+// MIXINS STYLE //
+@mixin liquid_glass {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8.4px);
+  -webkit-backdrop-filter: blur(8.4px);
+  border: 1px solid rgba(255, 255, 255, 0.48);
+}
+
+
+@mixin label-style {
+  color: white;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-left: 5px;
+}
+
+// FLEX MIXINS //
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+//////////////////////////////////////////////////////////////////
+
+// CONTAINER LOGIN / REGISTER //
+
+@mixin container-regLog {
+  width: 100%;
+  max-width: 450px;
+  padding: 2rem;
+}
+
+@mixin title-regLog {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: white;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+// FORMS //
+
+@mixin form-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(to right, #434343, #000000);
+}
+
+// INPUT //
+
+@mixin input {
+  cursor: pointer;
+  width: 100%;
+  height: 45px;
+  padding: 0 1rem;
+  font-size: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  color: white;
+  transition: all 0.3s ease;
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  &:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.15);
+  }
+}
+
+// BUTTON-FORMS //
+
+@mixin btn-forms {
+  width: 100%;
+  height: 45px;
+  margin-top: 1rem;
+  padding: 0 2rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  &:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// SWITCH-LOGS //
+
+@mixin switch-logs {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: white;
+  font-size: 0.9rem;
+
+  a {
+    color: #ff4f4f;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #e8e8e8;
+      text-decoration: underline;
+    }
+  }
+}
+
+// ERROR-FORM //
+
+@mixin err-message {
+  padding: 0.75rem;
+  background: rgba(244, 67, 54, 0.2);
+  border: 1px solid rgba(244, 67, 54, 0.4);
+  border-radius: 10px;
+  color: #ffcdd2;
+  font-size: 0.9rem;
+  text-align: center;
+}
