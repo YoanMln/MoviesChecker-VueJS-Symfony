@@ -48,18 +48,27 @@ onMounted(() => {
 
 <style scoped lang="scss">
 header {
-  background-color: grey;
   padding: 1rem;
   border-radius: 10px;
 
   nav {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    @include liquid_glass;
+
+    height: 50px;
 
     a {
       color: white;
+      font-size: 20px;
       text-decoration: none;
       margin-right: 1rem;
+      &:hover {
+        @include liquid_glass;
+        padding: 5px;
+      }
     }
 
     .nav-right {
